@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选装修公司怕踩坑？我们免费陪你"探店"，中立把关</title>
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Preline UI -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline@2.0.3/dist/preline.min.css" />
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+        
+        /* 平滑过渡效果 */
+        * {
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        /* 卡片悬停效果 */
+        .hover-card {
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+        }
+        .hover-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            border-color: #0ea5e9;
+        }
+        
+        /* 按钮悬停效果 */
+        .btn-hover {
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .btn-hover:hover {
+            transform: scale(1.03);
+        }
+        
+        /* 内容区块加载动画 */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans">
+    <!-- 主导航 -->
+    <header class="sticky top-0 z-50 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center space-x-2">
+                        <i class="fas fa-home text-primary-600 dark:text-primary-400 text-2xl"></i>
+                        <span class="font-bold text-xl">飞屋设计</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <i class="fas fa-sun hidden dark:block text-yellow-400"></i>
+                        <i class="fas fa-moon block dark:hidden text-gray-700"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="relative bg-gradient-to-br from-primary-50 to-white dark:from-gray-800 dark:to-gray-900 py-16 sm:py-24">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center fade-in">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+                    选装修公司怕踩坑？<br>
+                    <span class="text-primary-600 dark:text-primary-400">我们免费陪你"探店"，中立把关</span>
+                </h1>
+                <p class="text-lg sm:text-xl text-gray-700 dark:text-gray-300 mb-8">
+                    还在为挑选装修或设计公司感到头疼？担心信息不对称，被销售套路绕进去？<br>
+                    别担心！飞屋特别推出一项完全免费的增值服务：运营专家陪同考察。
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#service" class="btn-hover bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-medium text-lg">
+                        了解服务详情
+                    </a>
+                    <a href="#faq" class="btn-hover bg-white dark:bg-gray-800 text-primary-600 dark:text-primary-400 border border-primary-600 dark:border-primary-400 px-6 py-3 rounded-lg font-medium text-lg">
+                        常见问题解答
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- 装饰元素 -->
+        <div class="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-r from-primary-100 via-primary-50 to-transparent dark:from-gray-800 dark:via-gray-900 dark:to-transparent opacity-50"></div>
+    </section>
+
+    <!-- 服务介绍 -->
+    <section id="service" class="py-16 bg-white dark:bg-gray-900">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-2xl sm:text-3xl font-bold mb-8 text-center text-gray-900 dark:text-white">
+                    <i class="fas fa-handshake text-primary-600 dark:text-primary-400 mr-2"></i>
+                    我们会做什么？
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                    <!-- 服务项目1 -->
+                    <div class="hover-card bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 fade-in" style="animation-delay: 0.1s">
+                        <div class="flex items-center justify-center w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-full mb-4">
+                            <i class="fas fa-user-friends text-primary-600 dark:text-primary-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">陪同考察</h3>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            在你旁边，安静观察，不干扰你的判断。
+                        </p>
+                    </div>
+                    
+                    <!-- 服务项目2 -->
+                    <div class="hover-card bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 fade-in" style="animation-delay: 0.2s">
+                        <div class="flex items-center justify-center w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-full mb-4">
+                            <i class="fas fa-clipboard-list text-primary-600 dark:text-primary-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">专业记录</h3>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            帮你留意关键细节、合同条款、潜在猫腻。
+                        </p>
+                    </div>
+                    
+                    <!-- 服务项目3 -->
+                    <div class="hover-card bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 fade-in" style="animation-delay: 0.3s">
+                        <div class="flex items-center justify-center w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-full mb-4">
+                            <i class="fas fa-balance-scale text-primary-600 dark:text-primary-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">中立建议</h3>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            考察结束后，提供一份客观的观察记录和分析建议，帮你梳理优劣，识破不实宣传和隐藏陷阱。
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 服务流程 -->
+                <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-xl border border-gray-200 dark:border-gray-700 mb-12 fade-in">
+                    <h3 class="text-xl font-semibold mb-6 text-gray-900 dark:text-white flex items-center">
+                        <i class="fas fa-route text-primary-600 dark:text-primary-400 mr-2"></i>
+                        服务流程
+                    </h3>
+                    <ol class="relative border-l border-gray-300 dark:border-gray-700 ml-3 space-y-8">
+                        <li class="ml-6">
+                            <span class="absolute flex items-center justify-center w-8 h-8 bg-primary-100 dark:bg-primary-900 rounded-full -left-4 ring-4 ring-white dark:ring-gray-800">
+                                <i class="fas fa-calendar-check text-primary-600 dark:text-primary-400"></i>
+                            </span>
+                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white">预约考察</h4>
+                            <p class="text-gray-700 dark:text-gray-300 mt-2">
+                                你需要与装修公司预约考察时间，然后告知我们。
+                            </p>
+                        </li>
+                        <li class="ml-6">
+                            <span class="absolute flex items-center justify-center w-8 h-8 bg-primary-100 dark:bg-primary-900 rounded-full -left-4 ring-4 ring-white dark:ring-gray-800">
+                                <i class="fas fa-users text-primary-600 dark:text-primary-400"></i>
+                            </span>
+                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white">陪同考察</h4>
+                            <p class="text-gray-700 dark:text-gray-300 mt-2">
+                                我们的运营专家陪你一同前往，安静观察，记录关键信息。
+                            </p>
+                        </li>
+                        <li class="ml-6">
+                            <span class="absolute flex items-center justify-center w-8 h-8 bg-primary-100 dark:bg-primary-900 rounded-full -left-4 ring-4 ring-white dark:ring-gray-800">
+                                <i class="fas fa-file-alt text-primary-600 dark:text-primary-400"></i>
+                            </span>
+                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white">分析建议</h4>
+                            <p class="text-gray-700 dark:text-gray-300 mt-2">
+                                考察结束后，我们提供一份客观的观察记录和分析建议。
+                            </p>
+                        </li>
+                        <li class="ml-6">
+                            <span class="absolute flex items-center justify-center w-8 h-8 bg-primary-100 dark:bg-primary-900 rounded-full -left-4 ring-4 ring-white dark:ring-gray-800">
+                                <i class="fas fa-check-circle text-primary-600 dark:text-primary-400"></i>
+                            </span>
+                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white">决策支持</h4>
+                            <p class="text-gray-700 dark:text-gray-300 mt-2">
+                                帮助你做出明智的决策，但最终选择权完全在你手里。
+                            </p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 常见问题 -->
+    <section id="faq" class="py-16 bg-gray-50 dark:bg-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-2xl sm:text-3xl font-bold mb-8 text-center text-gray-900 dark:text-white">
+                    <i class="fas fa-question-circle text-primary-600 dark:text-primary-400 mr-2"></i>
+                    你可能关心的问题
+                </h2>
+                
+                <!-- 手风琴组件 -->
+                <div class="hs-accordion-group space-y-4 fade-in">
+                    <!-- 问题1 -->
+                    <div class="hs-accordion bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden" id="question-1">
+                        <button class="hs-accordion-toggle w-full flex justify-between items-center text-left p-5 font-semibold text-gray-800 dark:text-white" aria-controls="question-1-content">
+                            <span>
+                                <i class="fas fa-question-circle text-primary-600 dark:text-primary-400 mr-2"></i>
+                                "免费？天下哪有免费午餐？你们图什么？最后还不是想推销自己？"
+                            </span>
+                            <i class="fas fa-chevron-down hs-accordion-active:rotate-180 transition-transform"></i>
+                        </button>
+                        <div id="question-1-content" class="hs-accordion-content hidden px-5 pb-5">
+                            <div class="text-gray-700 dark:text-gray-300 space-y-3">
+                                <p>你有这个疑问很正常，天下没有免费的午餐。我们提供这项免费服务，确实有我们的考虑，但不是你想的那种"套路"。</p>
+                                <p>首先，我们希望通过这种实实在在的帮助，让更多人了解我们公司的专业度和价值观——我们是真正站在客户立场考虑问题的。</p>
+                                <p>其次，家装行业信息差太大，坑太多，我们希望通过提升整个行业的透明度来建立口碑。</p>
+                                <p>我们相信，只要我们做得足够好，足够真诚，即使这次你没选我们，未来或者你的朋友有需要时，会因为这份信任想到我们。</p>
+                                <p>至于中立性，我们的运营专家有严格的行为准则，在陪同现场以观察记录为主，不会当场评价或引导，考察后的分析也是基于事实和专业分析，最终判断权完全在你手里。</p>
+                                <p>你可以把我们看作是"请来的懂行的朋友"，给你提供建议，帮你选好装修公司。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题2 -->
+                    <div class="hs-accordion bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden" id="question-2">
+                        <button class="hs-accordion-toggle w-full flex justify-between items-center text-left p-5 font-semibold text-gray-800 dark:text-white" aria-controls="question-2-content">
+                            <span>
+                                <i class="fas fa-question-circle text-primary-600 dark:text-primary-400 mr-2"></i>
+                                "陪我的人真懂行吗？别是换了个马甲的销售吧？我能信他吗？"
+                            </span>
+                            <i class="fas fa-chevron-down hs-accordion-active:rotate-180 transition-transform"></i>
+                        </button>
+                        <div id="question-2-content" class="hs-accordion-content hidden px-5 pb-5">
+                            <div class="text-gray-700 dark:text-gray-300">
+                                <p>这点你放心。陪同你的不是装修小白，而是我们公司运营过多个项目的运营专家。他不仅懂设计、懂施工、懂材料，更关键的是，他们见过太多装修案例和各种公司运作方式，非常清楚里面的门道和常见的"坑"在哪里。他知道该看什么、问什么，能帮你捕捉到一般人注意不到的关键信息。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题3 -->
+                    <div class="hs-accordion bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden" id="question-3">
+                        <button class="hs-accordion-toggle w-full flex justify-between items-center text-left p-5 font-semibold text-gray-800 dark:text-white" aria-controls="question-3-content">
+                            <span>
+                                <i class="fas fa-question-circle text-primary-600 dark:text-primary-400 mr-2"></i>
+                                "会不会有后续推销压力？免费用了服务，总觉得欠人情咋办？"
+                            </span>
+                            <i class="fas fa-chevron-down hs-accordion-active:rotate-180 transition-transform"></i>
+                        </button>
+                        <div id="question-3-content" class="hs-accordion-content hidden px-5 pb-5">
+                            <div class="text-gray-700 dark:text-gray-300 space-y-3">
+                                <p>我们完全理解你不希望有压力的心情。这项服务的设计初衷就是纯粹的帮助。</p>
+                                <p>我们承诺，服务结束后，除了给你提供约定的观察分析和建议外，绝不会进行强行推销或频繁骚扰。选择权100%在你，你随时可以终止接触。</p>
+                                <p>我们的逻辑是，如果你通过这个过程认可了我们的专业和真诚，并且我们的服务也确实符合你的需求，你自然会考虑我们；如果觉得不合适，我们帮你避坑也算达成了初衷，绝不会让你有"人情债"的负担。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题4 -->
+                    <div class="hs-accordion bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden" id="question-4">
+                        <button class="hs-accordion-toggle w-full flex justify-between items-center text-left p-5 font-semibold text-gray-800 dark:text-white" aria-controls="question-4-content">
+                            <span>
+                                <i class="fas fa-question-circle text-primary-600 dark:text-primary-400 mr-2"></i>
+                                "会不会浪费我时间？多个人跟着，会不会更麻烦、效率更低？"
+                            </span>
+                            <i class="fas fa-chevron-down hs-accordion-active:rotate-180 transition-transform"></i>
+                        </button>
+                        <div id="question-4-content" class="hs-accordion-content hidden px-5 pb-5">
+                            <div class="text-gray-700 dark:text-gray-300 space-y-3">
+                                <p>恰恰相反，我们的目标是帮你<strong>节省时间</strong>和<strong>避免更大的成本浪费</strong>。</p>
+                                <p>前期多花一点时间做足功课，选对公司，远比后期发现问题返工、扯皮要省心省钱得多。</p>
+                                <p>我们的运营专家会配合你的时间安排。在考察现场，他们是"观察员"，不会干扰你的主要流程。</p>
+                                <p>真正的价值在于考察后的分析，那份分析能帮你快速聚焦关键点，做出更高效、更明智的决策，避免你自己反复纠结或被坑。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题5 -->
+                    <div class="hs-accordion bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden" id="question-5">
+                        <button class="hs-accordion-toggle w-full flex justify-between items-center text-left p-5 font-semibold text-gray-800 dark:text-white" aria-controls="question-5-content">
+                            <span>
+                                <i class="fas fa-question-circle text-primary-600 dark:text-primary-400 mr-2"></i>
+                                "我的信息安全吗？预算、需求、看的公司，会不会被你们拿去用？"
+                            </span>
+                            <i class="fas fa-chevron-down hs-accordion-active:rotate-180 transition-transform"></i>
+                        </button>
+                        <div id="question-5-content" class="hs-accordion-content hidden px-5 pb-5">
+                            <div class="text-gray-700 dark:text-gray-300 space-y-3">
+                                <p>你的隐私和你考察的信息对我们来说是绝对保密的。</p>
+                                <p>我们有严格的保密规定，运营专家获取的任何关于你的需求、预算以及你考察的其他公司的信息，仅用于为你提供分析建议，绝不会用于其他商业目的或泄露给第三方。</p>
+                                <p>这份信任是我们的立身之本。</p>
+                                <p>但还需要提醒的是，你提供给其他公司的信息，我们无法确保其他公司也是否会保密。所以，我们会提醒你，在未确立正式合作前，注意保护自己的隐私信息。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题6 -->
+                    <div class="hs-accordion bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden" id="question-6">
+                        <button class="hs-accordion-toggle w-full flex justify-between items-center text-left p-5 font-semibold text-gray-800 dark:text-white" aria-controls="question-6-content">
+                            <span>
+                                <i class="fas fa-question-circle text-primary-600 dark:text-primary-400 mr-2"></i>
+                                "'中立'的边界在哪？现场运营专家会乱说话吗？会直接评论好坏吗？这'度'怎么把握？会不会搞得很尴尬？"
+                            </span>
+                            <i class="fas fa-chevron-down hs-accordion-active:rotate-180 transition-transform"></i>
+                        </button>
+                        <div id="question-6-content" class="hs-accordion-content hidden px-5 pb-5">
+                            <div class="text-gray-700 dark:text-gray-300 space-y-3">
+                                <p>这个"度"我们把握得很清楚。在考察现场，我们的运营专家主要是'多看、多听、少说'，扮演一个安静的专业观察者角色，不会当着其他公司人员的面指指点点或提出质疑，避免造成任何尴尬。</p>
+                                <p>所有关键的分析、评价和建议，都是在考察结束后，我们私下单独提供给你。</p>
+                                <p>这样既保证了信息的客观收集，也维护了现场的和谐氛围。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务边界 -->
+    <section class="py-16 bg-white dark:bg-gray-900">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-2xl sm:text-3xl font-bold mb-8 text-center text-gray-900 dark:text-white">
+                    <i class="fas fa-border-style text-primary-600 dark:text-primary-400 mr-2"></i>
+                    服务边界说明
+                </h2>
+                
+                <div class="bg-gray-50 dark:bg-gray-800 p-8 rounded-xl border border-gray-200 dark:border-gray-700 fade-in">
+                    <p class="text-gray-700 dark:text-gray-300 mb-6">
+                        免费服务虽好，但也有边界哈。这项免费服务，<strong>不包含</strong>以下内容：
+                    </p>
+                    
+                    <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                            <span><strong>代替你做决策：</strong>我们给分析建议，但最后拍板还得是你自己。</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                            <span><strong>法律级别的合同审核：</strong>合同里的大坑我们会提醒，但逐字逐句的法律审查，这免费服务真干不了。</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                            <span><strong>参与价格谈判：</strong>帮你砍价？这个真没有。</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                            <span><strong>提供具体设计方案：</strong>针对你家的详细设计图纸？这个是由你选定的公司负责的事。</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                            <span><strong>单独陪同逛建材市场：</strong>除非是对方公司考察流程里自带的环节，否则一般不单独安排陪同买材料。</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                            <span><strong>对已签约的项目：</strong>这服务只管选公司阶段，签合同之后的事儿就不涉及了。</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                            <span><strong>为你预约考察时间：</strong>约哪家、什么时候去，还得麻烦你跟装修公司敲定。</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                            <span><strong>承担选择后果：</strong>我们给参考，但最终你选了谁、结果怎么样，责任还是在你哈。</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact" class="py-16 bg-white dark:bg-gray-900">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12 fade-in">
+                    <h2 class="heading text-2xl md:text-3xl font-bold text-primary-700 dark:text-primary-300 mb-4">
+                        联系我们
+                    </h2>
+                    <p class="body-text text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                        准备开始你的装修之旅？扫码添加我们的企业微信进行咨询
+                    </p>
+                </div>
+                
+                <div class="flex justify-center fade-in">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md max-w-xs">
+                        <img src="https://i.postimg.cc/PrWjF2wZ/SCR-20250402-oojj.jpg" alt="扫码加企业微信咨询" class="w-full h-auto rounded-md">
+                        <p class="text-center mt-4 text-gray-700 dark:text-gray-300 font-mono">
+                            扫码添加企业微信
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="mt-16 grid md:grid-cols-3 gap-8 fade-in">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md text-center">
+                        <div class="inline-block bg-primary-100 dark:bg-primary-800 rounded-full p-4 mb-4">
+                            <i class="fa-solid fa-location-dot text-2xl text-primary-600 dark:text-primary-300"></i>
+                        </div>
+                        <h3 class="heading font-bold text-gray-800 dark:text-gray-200 mb-2">地址</h3>
+                        <p class="body-text text-gray-700 dark:text-gray-300">
+                            深圳宝安区玖悦雅轩商业裙楼瑞思空间-飞屋设计
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md text-center">
+                        <div class="inline-block bg-primary-100 dark:bg-primary-800 rounded-full p-4 mb-4">
+                            <i class="fa-solid fa-phone text-2xl text-primary-600 dark:text-primary-300"></i>
+                        </div>
+                        <h3 class="heading font-bold text-gray-800 dark:text-gray-200 mb-2">电话</h3>
+                        <p class="body-text text-gray-700 dark:text-gray-300">
+                            17724631620
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md text-center">
+                        <div class="inline-block bg-primary-100 dark:bg-primary-800 rounded-full p-4 mb-4">
+                            <i class="fa-solid fa-envelope text-2xl text-primary-600 dark:text-primary-300"></i>
+                        </div>
+                        <h3 class="heading font-bold text-gray-800 dark:text-gray-200 mb-2">邮箱</h3>
+                        <p class="body-text text-gray-700 dark:text-gray-300">
+                            service@feiwu.design
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 行动召唤 -->
+    <section class="py-16 bg-gradient-to-br from-primary-600 to-primary-800 dark:from-primary-800 dark:to-primary-900 text-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center fade-in">
+                <h2 class="text-2xl sm:text-3xl font-bold mb-6">
+                    准备好了吗？让我们一起去"探店"！
+                </h2>
+                <p class="text-lg mb-8 text-white/90">
+                    不要再独自面对某些家装公司的销售套路，让我们的专业团队陪你一起，陪你做出明智的选择。
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 bg-primary-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Preline UI JS -->
+    <script src="https://cdn.jsdelivr.net/npm/preline@2.0.3/dist/preline.min.js"></script>
+    
+    <!-- 自定义脚本 -->
+    <script>
+        // 深色模式切换
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        
+        // 检查系统偏好
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        
+        // 切换主题
+        themeToggleBtn.addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+        });
+        
+        // 返回顶部按钮
+        const backToTopBtn = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.remove('opacity-0', 'invisible');
+                backToTopBtn.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'invisible');
+                backToTopBtn.classList.remove('opacity-100', 'visible');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 滚动动画
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                    fadeInObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        fadeElements.forEach(element => {
+            fadeInObserver.observe(element);
+        });
+    </script>
+</body>
+</html>
